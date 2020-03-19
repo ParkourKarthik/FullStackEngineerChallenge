@@ -25,4 +25,8 @@ npm run dev
 - Mongoose
 - Typescript
 
+Login credentials:
+Admin - secret
+employee - secret
+
 P.S: App uses `mongodb-memory-server` for instant run and has a very short lifetime.
