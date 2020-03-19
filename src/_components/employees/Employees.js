@@ -98,14 +98,16 @@ const GridView = ({ classes }) => {
 
   const isMounted = useRef(false);
   useEffect(() => {
-    if (isLoading && !isMounted.current) {
-      isMounted.current = true;
-      // loadData();
+    isMounted.current = true;
+    if (isLoading && isMounted.current) {
       GetAll()
         .then(data => {
-          dispatch(loadEmps(data));
-          setState({ ...state, data });
-          setIsLoading(false);
+          if (isMounted.current) {
+            dispatch(loadEmps(data));
+            setState({ ...state, data });
+            setIsLoading(false);
+          }
+          isMounted.current = false;
         })
         .catch(err => {
           console.log(err);

@@ -43,5 +43,6 @@ export class Routes {
       .get(this.fbController.GetFBsByEmpId)
       .put(this.fbController.Update);
     app.route('/authenticate').post(this.authController.Authenticate);
+    app.route('/logout');
   }
 }

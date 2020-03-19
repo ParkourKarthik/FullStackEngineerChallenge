@@ -1,6 +1,6 @@
 import { authHeader } from '../_helpers/AuthHeader';
 import { callApi } from './common.service';
-import Storage from '../_helpers/Storage';
+import storage from '../_helpers/Storage';
 
 //#region authentication
 export const Login = (username, password) => {
@@ -12,15 +12,21 @@ export const Login = (username, password) => {
 
   return callApi('authenticate', requestOptions).then(user => {
     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    Storage.saveUser(JSON.stringify(user));
+    storage.saveUser(JSON.stringify(user));
 
     return user;
   });
 };
 
-export const Logout = () => {
+export const Logout = _id => {
   // remove user from local storage to log user out
-  Storage.removeUser();
+  const requestOptions = {
+    method: 'POST',
+    headers: authHeader(),
+    body: { _id }
+  };
+  storage.removeUser();
+  callApi('logout', requestOptions);
 };
 //#endregion
 

@@ -53,7 +53,7 @@ export class Employee {
       phone: { type: String },
       username: { type: String, required: true },
       tokens: { type: Array, required: true },
-      role: {type: Role},
+      role: { type: Role },
       reviewDocs: { type: [reviewDocs] }
     });
 
@@ -70,6 +70,8 @@ export class Employee {
       const auth = new Auth();
       const token = auth.generateToken(user._id);
       user.tokens.push(token);
+      if(user.tokens.length > 5) // keep maximum 5 logins for a single user
+        user.tokens.shift();
       await user.save();
       return token;
     };

@@ -28,7 +28,6 @@ import SignIn from './_core/SignIn';
 import { blue, orange } from '@material-ui/core/colors';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import { Logout } from './_services/employee.service';
-import { useSelector } from 'react-redux';
 import storage from './_helpers/Storage';
 
 const drawerWidth = 240;
@@ -117,7 +116,7 @@ function Dashboard() {
   const mobileView = useMediaQuery(theme => theme.breakpoints.down('sm'));
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const [header, setHeader] = React.useState('');
+  const [, setHeader] = React.useState('');
   const { enqueueSnackbar } = useSnackbar();
   const user = storage.getUser(); //useSelector(state => state.user);
 
@@ -137,7 +136,7 @@ function Dashboard() {
   };
 
   const logOut = () => {
-    Logout();
+    Logout(user._id);
     window.location.reload();
     enqueueSnackbar('Logged out successfully!', { variant: 'success' });
   };
@@ -239,7 +238,6 @@ export default function App() {
             path='/'
             render={props => {
               const user = storage.getUser(); //useSelector(state => state.user);
-              console.log('user', user);
               return user ? <Dashboard {...props} /> : <Redirect to='/login' />;
             }}
           ></Route>

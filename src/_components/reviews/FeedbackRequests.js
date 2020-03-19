@@ -96,12 +96,14 @@ const GridView = () => {
 
   const isMounted = useRef(false);
   useEffect(() => {
-    if (isLoading && !isMounted.current) {
+    isMounted.current = true;
+    if (isLoading && isMounted.current) {
       GetAllFBRById(user._id)
         .then(data => {
-          if (data) {
+          if (data && isMounted.current) {
             setState({ ...state, data });
             setIsLoading(false);
+            isMounted.current = false;
           }
         })
         .catch(err => {
