@@ -1,5 +1,4 @@
 import { connect, connection, Connection, Types } from 'mongoose';
-import config from '../config';
 import { IEmployeeModel, Employee } from '../models/employee';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
@@ -41,7 +40,8 @@ export default class DB {
     // this._db.on('error', this.error);
 
     this._models = {
-      Employee: new Employee().model
+      //@ts-ignore
+      Employee: new Employee().model,
     };
   }
 
