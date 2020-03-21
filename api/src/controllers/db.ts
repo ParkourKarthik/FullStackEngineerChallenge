@@ -10,11 +10,6 @@ export default class DB {
   private static instance: DB;
   private mongod: MongoMemoryServer = new MongoMemoryServer();
   private uri: Promise<string> = this.mongod.getUri();
-  /* new Promise((res, rej) => {
-    res(
-      'mongodb+srv://geckot_user:resu_tokceg321@cluster0-4oteq.gcp.mongodb.net/test?retryWrites=true&w=majority'
-    );
-  }); */
   private mongoUrl: string;
 
   private _db: Connection;
@@ -36,9 +31,6 @@ export default class DB {
       err => this.error(err)
     );
     this._db = connection;
-    // this._db.on('open', this.connected);
-    // this._db.on('error', this.error);
-
     this._models = {
       //@ts-ignore
       Employee: new Employee().model,
